@@ -8,7 +8,7 @@
     *I wrote this because MSVC lags behind the standard
     ?This is a header which will dissapear when std::ranges::views::enumerate reaches full adoption
 
-    It was such a cool thing i could pass on it so here you go. My own!
+    It was such a cool thing i couldn't pass on it so here you go. My own!
 */
 
 namespace Carbo
