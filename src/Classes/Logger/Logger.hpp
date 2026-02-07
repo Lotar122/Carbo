@@ -43,7 +43,7 @@ namespace Carbo
         }
         inline static void Error(std::string_view what)
         {
-            std::cout << std::format(RED "[ERROR]" RESET " {}\n", what);
+            std::cerr << std::format(RED "[ERROR]" RESET " {}\n", what);
         }
 
         template<typename... Args>
