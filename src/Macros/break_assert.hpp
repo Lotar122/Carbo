@@ -13,5 +13,5 @@
             }                                                    \
         } while (0)
 #else
-    #define MY_ASSERT(expr) ((void)0)
+    #define break_assert(expr) ((void)0)
 #endif
