@@ -12,7 +12,7 @@ namespace Carbo
         Windows
     };
 
-    static Platform getPlatform()
+    inline static Platform getPlatform()
     {
         std::ifstream platformFile("./Platform");
 
