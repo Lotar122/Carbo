@@ -41,7 +41,7 @@ namespace Carbo
         {
             std::unique_lock<std::mutex> lock(mtx);
 
-            cv.wait(lock, [this] {return this->flag; });
+            cv.wait(lock, [this] { return this->flag; });
 
             flag = false;
 
