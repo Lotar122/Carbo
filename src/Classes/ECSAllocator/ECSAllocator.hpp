@@ -124,6 +124,12 @@ namespace Carbo
             return index;
         }
 
+        inline const T& at(size_t index) const
+        {
+            assert(data[index].valid);
+            return data[index].data;
+        }
+
         inline T& at(size_t index)
         {
             assert(data[index].valid);
