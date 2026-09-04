@@ -10,19 +10,19 @@ namespace Carbo
     template<typename T>
     class ECSAllocator
     {
-        struct DataWrapper 
-        {
-            T data;
-            bool valid = true;
+        // struct DataWrapper 
+        // {
+        //     T data;
+        //     bool valid = true;
 
-            DataWrapper(T& _data) : data(_data) {};
-            DataWrapper(T&& _data) : data(std::move(_data)) {};
+        //     DataWrapper(T& _data) : data(_data) {};
+        //     DataWrapper(T&& _data) : data(std::move(_data)) {};
 
-            DataWrapper(T& _data, bool _valid) : data(_data), valid(_valid) {};
-            DataWrapper(T&& _data, bool _valid) : data(std::move(_data)), valid(_valid) {};
-        };
+        //     DataWrapper(T& _data, bool _valid) : data(_data), valid(_valid) {};
+        //     DataWrapper(T&& _data, bool _valid) : data(std::move(_data)), valid(_valid) {};
+        // };
 
-        std::vector<DataWrapper> data;
+        std::vector<T> data;
         std::deque<size_t> freeList;
     public:
         void free(size_t index)
@@ -37,8 +37,7 @@ namespace Carbo
 
             if(!freeList.empty())
             {
-                data[freeList.front()].data = _data;
-                data[freeList.front()].valid = true;
+                data[freeList.front()] = _data;
 
                 index = freeList.front();
 
@@ -60,8 +59,7 @@ namespace Carbo
 
             if(!freeList.empty())
             {
-                data[freeList.front()].data = std::move(_data);
-                data[freeList.front()].valid = true;
+                data[freeList.front()] = std::move(_data);
 
                 index = freeList.front();
 
@@ -84,8 +82,7 @@ namespace Carbo
 
             if(!freeList.empty())
             {
-                data[freeList.front()].data = T(std::forward<Args>(args)...);
-                data[freeList.front()].valid = true;
+                data[freeList.front()] = T(std::forward<Args>(args)...);
 
                 index = freeList.front();
 
@@ -107,8 +104,7 @@ namespace Carbo
 
             if(!freeList.empty())
             {
-                data[freeList.front()].data = T();
-                data[freeList.front()].valid = true;
+                data[freeList.front()] = T();
 
                 index = freeList.front();
 
@@ -126,19 +122,29 @@ namespace Carbo
 
         inline const T& at(size_t index) const
         {
-            assert(data[index].valid);
-            return data[index].data;
+            //assert(data[index].valid);
+            return data[index];
         }
 
         inline T& at(size_t index)
         {
-            assert(data[index].valid);
-            return data[index].data;
+            //assert(data[index].valid);
+            return data[index];
         }
 
         inline void reset()
         {
             data.clear();
+        }
+
+        inline void reserve(size_t _size)
+        {
+            data.reserve(_size);
+        }
+
+        inline T* _data()
+        {
+            return data.data();
         }
     };
 }
