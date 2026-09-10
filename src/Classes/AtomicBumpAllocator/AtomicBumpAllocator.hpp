@@ -1,9 +1,11 @@
+#pragma once
+
 #include <atomic>
-#include <crtdbg.h>
 #include <cstdint>
 #include <cstddef>
 #include <memory>
 #include <cstdlib>
+#include <cassert>
 
 #ifdef _WIN32 
     #include <malloc.h>
