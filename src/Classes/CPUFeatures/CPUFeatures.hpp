@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#if defined(_MSC_VER) || defined(__clang__)
+#if defined(_MSC_VER) || (defined(__clang__) && _WIN32)
     #include <intrin.h>
 #endif
 
@@ -46,7 +46,7 @@ namespace Carbo
             {
                 int regs[4];
 
-                #if defined(_MSC_VER) || defined(__clang__)
+                #if defined(_MSC_VER) || (defined(__clang__) && _WIN32)
                     __cpuidex(regs, leaf, subleaf);
                 #else
                     __asm__ volatile(
@@ -70,7 +70,7 @@ namespace Carbo
 
             inline std::uint64_t xgetbv(unsigned int index)
             {
-                #if defined(_MSC_VER) || defined(__clang__)
+                #if defined(_MSC_VER) || (defined(__clang__) && _WIN32)
                     return _xgetbv(index);
                 #else
                     std::uint32_t eax;

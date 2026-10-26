@@ -91,6 +91,8 @@ endif()
 
 find_package(OpenSSL REQUIRED)
 
+find_package(GTest CONFIG REQUIRED)
+
 message("Using C++ compiler: ${CMAKE_CXX_COMPILER}\nUsing C compiler: ${CMAKE_C_COMPILER}")
 
 file(GLOB_RECURSE SOURCES 
@@ -100,6 +102,24 @@ file(GLOB_RECURSE SOURCES
 set(COMPILE_TARGET "Executable" CACHE STRING "Choose build target: Executable or Lib")
 
 add_library(Carbo ${SOURCES} "${CMAKE_CURRENT_SOURCE_DIR}/src/Carbo.hpp")
+
+enable_testing()
+
+file(GLOB_RECURSE TEST_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp"
+)
+
+add_executable(Carbo_tests ${TEST_SOURCES})
+
+target_link_libraries(Carbo_tests PRIVATE
+    Carbo
+    GTest::gtest_main
+)
+
+target_compile_features(Carbo_tests PRIVATE cxx_std_20)
+
+include(GoogleTest)
+gtest_discover_tests(Carbo_tests)
 
 target_include_directories(Carbo 
 	PUBLIC
